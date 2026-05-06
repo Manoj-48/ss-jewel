@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1c150a">
+<title>SS Jewel Manufactures | Exquisite Collection 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ═══ DESIGN TOKENS ═══ */
+:root {
+  --gold:       #c9973a;
+  --gold-light: #e8c97a;
+  --gold-dim:   rgba(201,151,58,0.12);
+  --cream:      #fdf8f0;
+  --cream-card: #fffcf5;
+  --cream-dark: #f0e8d8;
+  --ink:        #1c150a;
+  --ink-muted:  #8b7355;
+  --border:     rgba(201,151,58,0.2);
+  --radius:     12px;
+  --ff-serif:   'Cormorant Garamond', serif;
+  --ff-sans:    'Plus Jakarta Sans', sans-serif;
+  --ff-mono:    'DM Mono', monospace;
+  --shadow:     0 10px 30px rgba(28,21,10,0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--ff-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ NAVIGATION ═══ */
+#nav {
+  position: sticky; top: 0; z-index: 1000;
+  height: 72px; background: rgba(253,248,240,0.95);
+  backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 24px;
+}
+.nav-logo { text-align: center; text-decoration: none; }
+.nav-logo-main { 
+  font-family: var(--ff-serif); font-size: 24px; font-weight: 600;
+  color: var(--ink); letter-spacing: 1px; display: block;
+}
+.nav-logo-sub { 
+  font-family: var(--ff-mono); font-size: 9px; letter-spacing: 3px; 
+  color: var(--gold); text-transform: uppercase; margin-top: 2px; display: block;
+}
+.nav-admin-btn {
+  position: absolute; right: 24px; background: none; border: none;
+  color: var(--gold); cursor: pointer; font-size: 18px; padding: 8px;
+}
+
+/* ═══ HERO SECTION ═══ */
+#hero {
+  background: linear-gradient(135deg, #1c150a 0%, #2d1f0a 100%);
+  padding: 100px 24px; text-align: center; position: relative; overflow: hidden;
+}
+.hero-subtitle {
+  font-family: var(--ff-mono); font-size: 10px; color: var(--gold);
+  letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.hero-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+.hero-title {
+  font-family: var(--ff-serif); font-size: clamp(40px, 8vw, 72px);
+  font-weight: 300; color: var(--cream); line-height: 1.1; margin-bottom: 24px;
+}
+.hero-title em { font-style: italic; color: var(--gold-light); }
+.hero-stats {
+  display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+}
+.hstat-val { font-family: var(--ff-serif); font-size: 32px; color: var(--gold-light); }
+.hstat-label { font-family: var(--ff-mono); font-size: 9px; color: rgba(253,248,240,0.4); text-transform: uppercase; letter-spacing: 2px; }
+
+/* ═══ INTERFACE ═══ */
+#filter-bar {
+  display: flex; gap: 10px; padding: 16px 24px; overflow-x: auto;
+  position: sticky; top: 72px; z-index: 900; background: var(--cream);
+  border-bottom: 1px solid var(--border); scrollbar-width: none;
+}
+#filter-bar::-webkit-scrollbar { display: none; }
+.fpill {
+  flex-shrink: 0; padding: 8px 20px; border-radius: 50px;
+  border: 1px solid var(--border); background: var(--cream-card);
+  font-family: var(--ff-sans); font-size: 12px; font-weight: 500;
+  color: var(--ink-muted); cursor: pointer; transition: all 0.3s;
+}
+.fpill.active { background: var(--gold); border-color: var(--gold); color: white; }
+
+#grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px; padding: 40px 24px;
+}
+.pcard {
+  background: var(--cream-card); border-radius: var(--radius);
+  overflow: hidden; border: 1px solid var(--border);
+  transition: all 0.4s ease; cursor: pointer;
+}
+.pcard:hover { transform: translateY(-8px); box-shadow: var(--shadow); border-color: var(--gold-light); }
+
+.card-img-wrap { aspect-ratio: 1; background: var(--cream-dark); position: relative; overflow: hidden; }
+.card-img { width: 100%; height: 100%; object-fit: cover; }
+.card-wm {
+  position: absolute; inset: 0; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0.1; font-family: var(--ff-mono); font-size: 10px;
+  color: var(--gold); transform: rotate(-30deg); white-space: nowrap;
+}
+
+.card-body { padding: 20px; text-align: center; }
+.card-model { font-family: var(--ff-mono); font-size: 9px; color: var(--gold); margin-bottom: 8px; letter-spacing: 2px; }
+.card-name { font-family: var(--ff-serif); font-size: 20px; font-weight: 400; margin-bottom: 12px; color: var(--ink); }
+.card-price { font-family: var(--ff-serif); font-size: 18px; font-weight: 600; color: var(--ink); }
+.card-price::before { content: '₹'; margin-right: 4px; color: var(--gold); }
+
+/* ═══ FOOTER ═══ */
+footer {
+  padding: 60px 24px; text-align: center; background: var(--cream-dark);
+  color: var(--ink-muted); font-size: 11px; font-family: var(--ff-mono);
+}
+.footer-brand { font-family: var(--ff-serif); font-size: 20px; color: var(--ink); margin-bottom: 12px; }
+
+/* ═══ MODAL ═══ */
+#modal-ov {
+  position: fixed; inset: 0; z-index: 2000; background: rgba(28,21,10,0.8);
+  backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; padding: 20px;
+}
+#modal-ov.open { display: flex; }
+#modal {
+  background: var(--cream-card); width: 100%; max-width: 500px;
+  border-radius: 20px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+.modal-body { padding: 32px; text-align: center; }
+
+/* ═══════════════════════════ ADMIN LOGIN ═══════════════════════════ */
+#admin-login{
+  position:fixed;inset:0;z-index:2100;
+  background:rgba(253,248,240,0.98);backdrop-filter:blur(15px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+#admin-login.open{display:flex;}
+.al-box{
+  background:var(--cream-card);border:1px solid var(--border);border-radius:16px;
+  padding:40px;width:100%;max-width:360px;box-shadow:var(--shadow);
+}
+.al-title{font-family:var(--ff-serif);font-size:24px;font-weight:600;color:var(--ink);margin-bottom:8px;text-align:center;}
+.al-sub{font-family:var(--ff-mono);font-size:10px;letter-spacing:2px;color:var(--gold);text-align:center;text-transform:uppercase;margin-bottom:32px;}
+.al-field{margin-bottom:16px;}
+.al-label{font-family:var(--ff-mono);font-size:9px;color:var(--ink-muted);text-transform:uppercase;display:block;margin-bottom:6px;}
+.al-input{
+  width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:8px;
+  background:white;font-family:var(--ff-sans);font-size:14px;color:var(--ink);outline:none;
+}
+.btn-al-login{
+  width:100%;padding:14px;border-radius:8px;background:var(--gold);border:none;
+  font-family:var(--ff-mono);font-size:12px;font-weight:700;color:white;cursor:pointer;text-transform:uppercase;margin-top:8px;
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">SS</span>
+    <span class="nav-logo-sub">Jewel Manufactures</span>
+  </a>
+  <button class="nav-admin-btn" onclick="openAdminLogin()">⚙</button>
+</nav>
+
+<section id="hero">
+  <div class="hero-subtitle"><span class="hero-dot"></span> Collection 2026</div>
+  <h1 class="hero-title">Timeless <em>Craftsmanship</em></h1>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val">50+</div><div class="hstat-label">Pieces</div></div>
+    <div class="hstat"><div class="hstat-val">22K</div><div class="hstat-label">Purity</div></div>
+    <div class="hstat"><div class="hstat-val">BIS</div><div class="hstat-label">Certified</div></div>
+  </div>
+</section>
+
+<div id="filter-bar">
+  <button class="fpill active" onclick="doFilter('all',this)">All Collections</button>
+  <button class="fpill" onclick="doFilter('Ring',this)">Rings</button>
+  <button class="fpill" onclick="doFilter('Earring',this)">Earrings</button>
+  <button class="fpill" onclick="doFilter('Chain',this)">Chains</button>
+  <button class="fpill" onclick="doFilter('Bangle',this)">Bangles</button>
+</div>
+
+<div id="grid"></div>
+
+<div id="modal-ov" onclick="closeModal(event)">
+  <div id="modal">
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<div id="admin-login">
+  <div class="al-box">
+    <div class="al-title">Secure Access</div>
+    <div class="al-sub">SS Jewel Manufactures</div>
+    <div class="al-field">
+      <label class="al-label">Username</label>
+      <input class="al-input" id="al-user" type="text" autocomplete="off">
+    </div>
+    <div class="al-field">
+      <label class="al-label">Password</label>
+      <input class="al-input" id="al-pass" type="password">
+    </div>
+    <button class="btn-al-login" onclick="doLogin()">Authenticate</button>
+    <div style="text-align:center;margin-top:20px">
+      <button onclick="document.getElementById('admin-login').classList.remove('open')" style="background:none;border:none;color:var(--ink-muted);font-family:var(--ff-mono);font-size:10px;cursor:pointer;">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">SS Jewel Manufactures</div>
+  <p>Exquisite Jewellery Catalogue · 2026 Edition</p>
+  <p style="margin-top:20px; opacity:0.5;">© 2026 All Rights Reserved</p>
+</footer>
+
+<script>
+// Protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'p' || e.key === 'i')) e.preventDefault();
+});
+
+const PRODUCTS = [
+  {id:1,model:'SSGRNG0001',name:'Lotus Bloom Ring',cat:'Ring',price:4200,img:'gold-stud-img/SSGRNG0001.png'},
+  {id:2,model:'SSGRNG0002',name:'Classic Band Ring',cat:'Ring',price:6800,img:'gold-stud-img/SSGRNG0002.png'},
+  {id:3,model:'SSGRNG0003',name:'Floral Carved Ring',cat:'Ring',price:5900,img:'gold-stud-img/SSGRNG0003.png'},
+  {id:4,model:'SSGRNG0004',name:'Twisted Rope Ring',cat:'Ring',price:4500,img:'gold-stud-img/SSGRNG0004.png'},
+  {id:5,model:'SSGRNG0005',name:'Temple Design Ring',cat:'Ring',price:8200,img:'gold-stud-img/SSGRNG0005.png'},
+  {id:6,model:'SSGRNG0006',name:'Diamond Solitaire',cat:'Ring',price:25000,img:'gold-stud-img/SS-DEMO-01.png'},
+];
+
+let activeFilter = 'all';
+
+function render() {
+  const grid = document.getElementById('grid');
+  const filtered = activeFilter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeFilter);
+  
+  grid.innerHTML = filtered.map(p => `
+    <div class="pcard" onclick="openModal(${p.id})">
+      <div class="card-img-wrap">
+        <img class="card-img" src="${p.img}" alt="${p.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%23f0e8d8%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22serif%22 font-size=%2210%22 fill=%22%23c9973a%22>${p.model}</text></svg>'">
+        <div class="card-wm">SS JEWEL MANUFACTURES</div>
+      </div>
+      <div class="card-body">
+        <div class="card-model">${p.model}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-price">${p.price.toLocaleString('en-IN')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function doFilter(cat, btn) {
+  document.querySelectorAll('.fpill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = cat;
+  render();
+}
+
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  document.getElementById('modal-content').innerHTML = `
+    <div class="card-img-wrap" style="aspect-ratio:1;">
+      <img class="card-img" src="${p.img}" style="height:100%;">
+    </div>
+    <div class="modal-body">
+      <div class="card-model">${p.model}</div>
+      <div class="card-name" style="font-size:28px;">${p.name}</div>
+      <div class="card-price" style="font-size:24px;">${p.price.toLocaleString('en-IN')}</div>
+      <button onclick="window.open('https://wa.me/919194XXXXXX?text=Order:${p.model}')" style="margin-top:30px; width:100%; padding:15px; background:var(--gold); border:none; color:white; font-family:var(--ff-mono); font-weight:700; border-radius:10px; cursor:pointer;">ORDER ON WHATSAPP</button>
+    </div>
+  `;
+  document.getElementById('modal-ov').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-ov')) document.getElementById('modal-ov').classList.remove('open');
+}
+
+function openAdminLogin() { document.getElementById('admin-login').classList.add('open'); }
+
+function doLogin() {
+  const u = document.getElementById('al-user').value;
+  const p = document.getElementById('al-pass').value;
+  if(u === 'admin' && p === 'ss2026') {
+    alert('Admin Access Granted');
+    document.getElementById('admin-login').classList.remove('open');
+  } else {
+    alert('Invalid Credentials');
+  }
+}
+
+render();
+</script>
+</body>
+</html>
