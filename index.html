@@ -143,27 +143,40 @@ footer {
 
 /* ═══════════════════════════ ADMIN LOGIN ═══════════════════════════ */
 #admin-login{
-  position:fixed;inset:0;z-index:2100;
-  background:rgba(253,248,240,0.98);backdrop-filter:blur(15px);
-  display:none;align-items:center;justify-content:center;padding:20px;
+  position:fixed; bottom: 84px; left: 24px; z-index: 2100;
+  width: 320px; background:var(--cream-card); border:1px solid var(--border);
+  border-radius:16px; padding:32px; box-shadow:var(--shadow);
+  display:none; flex-direction: column; animation: slide-up 0.3s ease;
 }
+@keyframes slide-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 #admin-login.open{display:flex;}
-.al-box{
-  background:var(--cream-card);border:1px solid var(--border);border-radius:16px;
-  padding:40px;width:100%;max-width:360px;box-shadow:var(--shadow);
-}
-.al-title{font-family:var(--ff-serif);font-size:24px;font-weight:600;color:var(--ink);margin-bottom:8px;text-align:center;}
-.al-sub{font-family:var(--ff-mono);font-size:10px;letter-spacing:2px;color:var(--gold);text-align:center;text-transform:uppercase;margin-bottom:32px;}
+.al-title{font-family:var(--ff-serif);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px;}
+.al-sub{font-family:var(--ff-mono);font-size:9px;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:24px;}
 .al-field{margin-bottom:16px;}
 .al-label{font-family:var(--ff-mono);font-size:9px;color:var(--ink-muted);text-transform:uppercase;display:block;margin-bottom:6px;}
 .al-input{
-  width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:8px;
+  width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;
   background:white;font-family:var(--ff-sans);font-size:14px;color:var(--ink);outline:none;
 }
+.al-input:focus { border-color: var(--gold); }
 .btn-al-login{
-  width:100%;padding:14px;border-radius:8px;background:var(--gold);border:none;
-  font-family:var(--ff-mono);font-size:12px;font-weight:700;color:white;cursor:pointer;text-transform:uppercase;margin-top:8px;
+  width:100%;padding:12px;border-radius:8px;background:var(--ink);border:none;
+  font-family:var(--ff-mono);font-size:11px;font-weight:700;color:var(--gold);cursor:pointer;text-transform:uppercase;margin-top:8px;
+  transition: all 0.2s;
 }
+.btn-al-login:hover { background: var(--gold); color: white; }
+
+/* ═══ ADMIN BUTTON ═══ */
+#admin-btn {
+  position: fixed; bottom: 24px; left: 24px; z-index: 1500;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--ink); color: var(--gold);
+  border: none; font-size: 20px; cursor: pointer;
+  box-shadow: var(--shadow); transition: all 0.3s;
+  display: flex; align-items: center; justify-content: center;
+}
+#admin-btn:hover { transform: scale(1.1); background: var(--gold); color: white; }
+#admin-btn.active { background: var(--gold); color: white; transform: rotate(90deg); }
 </style>
 </head>
 <body>
@@ -173,8 +186,9 @@ footer {
     <span class="nav-logo-main">SS</span>
     <span class="nav-logo-sub">Jewel Manufactures</span>
   </a>
-  <button class="nav-admin-btn" onclick="openAdminLogin()">⚙</button>
 </nav>
+
+<button id="admin-btn" onclick="openAdminLogin()" title="Admin Access">⚙</button>
 
 <section id="hero">
   <div class="hero-subtitle"><span class="hero-dot"></span> Collection 2026</div>
@@ -203,21 +217,19 @@ footer {
 </div>
 
 <div id="admin-login">
-  <div class="al-box">
-    <div class="al-title">Secure Access</div>
-    <div class="al-sub">SS Jewel Manufactures</div>
-    <div class="al-field">
-      <label class="al-label">Username</label>
-      <input class="al-input" id="al-user" type="text" autocomplete="off">
-    </div>
-    <div class="al-field">
-      <label class="al-label">Password</label>
-      <input class="al-input" id="al-pass" type="password">
-    </div>
-    <button class="btn-al-login" onclick="doLogin()">Authenticate</button>
-    <div style="text-align:center;margin-top:20px">
-      <button onclick="document.getElementById('admin-login').classList.remove('open')" style="background:none;border:none;color:var(--ink-muted);font-family:var(--ff-mono);font-size:10px;cursor:pointer;">CANCEL</button>
-    </div>
+  <div class="al-title">Secure Access</div>
+  <div class="al-sub">SS Jewel Manufactures</div>
+  <div class="al-field">
+    <label class="al-label">Username</label>
+    <input class="al-input" id="al-user" type="text" autocomplete="off">
+  </div>
+  <div class="al-field">
+    <label class="al-label">Password</label>
+    <input class="al-input" id="al-pass" type="password">
+  </div>
+  <button class="btn-al-login" onclick="doLogin()">Authenticate</button>
+  <div style="text-align:center;margin-top:20px">
+    <button onclick="openAdminLogin()" style="background:none;border:none;color:var(--ink-muted);font-family:var(--ff-mono);font-size:10px;cursor:pointer;">CANCEL</button>
   </div>
 </div>
 
@@ -291,7 +303,10 @@ function closeModal(e) {
   if (e.target === document.getElementById('modal-ov')) document.getElementById('modal-ov').classList.remove('open');
 }
 
-function openAdminLogin() { document.getElementById('admin-login').classList.add('open'); }
+function openAdminLogin() { 
+  document.getElementById('admin-login').classList.toggle('open'); 
+  document.getElementById('admin-btn').classList.toggle('active');
+}
 
 const ADMINS = [
   {u: 'admin', p: 'admin123'},
@@ -308,7 +323,7 @@ function doLogin() {
   
   if(isValid) {
     alert('Admin Access Granted');
-    document.getElementById('admin-login').classList.remove('open');
+    openAdminLogin();
   } else {
     alert('Invalid Credentials');
   }
