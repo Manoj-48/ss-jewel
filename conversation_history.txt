@@ -1,0 +1,30 @@
+# SS Jewel Manufactures - Project Interaction History
+
+## Project Overview
+Transitioned "Sanju Jewellers" to "SS Jewel Manufactures" with a focus on high-end luxury UI/UX and product protection.
+
+## Key Milestones:
+1. **Initial Analysis:** Mapped the workspace and created the foundation `GEMINI.md`.
+2. **Rebranding:** Renamed all files and internal code references to "SS Jewel Manufactures". Changed model code prefix to "SS".
+3. **UI/UX Transformation:** 
+   - Moved from a dark theme to a "Modern Luxury" aesthetic.
+   - Adopted the "Jeevana Jewellers" design language: Cream, Gold, and Deep Ink palette.
+   - Implemented high-end typography (Playfair Display & Cormorant Garamond).
+   - Centered navigation and created an airy, premium hero section.
+4. **Security Implementation:**
+   - Disabled right-click functionality.
+   - Blocked keyboard shortcuts (Ctrl+U, Ctrl+S, Ctrl+P) to prevent code/image theft.
+   - Added dynamic watermarking to product images.
+5. **Automation & AI:**
+   - Created `extract.py` for local PDF-to-Image extraction.
+   - Developed `setup-ai-images.sh` for setting up a local AI (Fooocus/SDXL) for generating professional jewellery photos.
+   - Renamed existing product screenshots to match the new "SS" model system.
+6. **Deployment:**
+   - Initialized a Git repository.
+   - Renamed the main file to `index.html` for GitHub Pages hosting.
+   - Successfully pushed the code to `https://github.com/Manoj-48/ss-jewel.git`.
+
+## Technical Stack:
+- Frontend: HTML5, CSS3 (Vanilla), JavaScript (ES6+).
+- Assets: Images stored in `gold-stud-img/`.
+- Tracking (Proposed): Supabase for user engagement analytics.
