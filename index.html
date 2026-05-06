@@ -293,10 +293,20 @@ function closeModal(e) {
 
 function openAdminLogin() { document.getElementById('admin-login').classList.add('open'); }
 
+const ADMINS = [
+  {u: 'admin', p: 'admin123'},
+  {u: 'manager', p: 'manager123'},
+  {u: 'staff1', p: 'staff1'},
+  {u: 'staff2', p: 'staff2'},
+  {u: 'owner', p: 'owner2026'}
+];
+
 function doLogin() {
   const u = document.getElementById('al-user').value;
   const p = document.getElementById('al-pass').value;
-  if(u === 'admin' && p === 'ss2026') {
+  const isValid = ADMINS.some(admin => admin.u === u && admin.p === p);
+  
+  if(isValid) {
     alert('Admin Access Granted');
     document.getElementById('admin-login').classList.remove('open');
   } else {
