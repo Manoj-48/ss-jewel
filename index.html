@@ -141,30 +141,34 @@ footer {
 }
 .modal-body { padding: 32px; text-align: center; }
 
-/* ═══════════════════════════ ADMIN LOGIN ═══════════════════════════ */
-#admin-login{
+/* ═══════════════════════════ ADMIN LOGIN & PANEL ═══════════════════════════ */
+#admin-login, #admin-panel {
   position:fixed; bottom: 84px; left: 24px; z-index: 2100;
   width: 320px; background:var(--cream-card); border:1px solid var(--border);
-  border-radius:16px; padding:32px; box-shadow:var(--shadow);
+  border-radius:16px; padding:28px; box-shadow:var(--shadow);
   display:none; flex-direction: column; animation: slide-up 0.3s ease;
 }
 @keyframes slide-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-#admin-login.open{display:flex;}
-.al-title{font-family:var(--ff-serif);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px;}
-.al-sub{font-family:var(--ff-mono);font-size:9px;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:24px;}
-.al-field{margin-bottom:16px;}
-.al-label{font-family:var(--ff-mono);font-size:9px;color:var(--ink-muted);text-transform:uppercase;display:block;margin-bottom:6px;}
-.al-input{
-  width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;
-  background:white;font-family:var(--ff-sans);font-size:14px;color:var(--ink);outline:none;
+#admin-login.open, #admin-panel.open { display:flex; }
+
+.al-title, .ap-title { font-family:var(--ff-serif); font-size:22px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.al-sub, .ap-sub { font-family:var(--ff-mono); font-size:9px; letter-spacing:1px; color:var(--gold); text-transform:uppercase; margin-bottom:24px; }
+
+.al-field, .ap-field { margin-bottom:12px; }
+.al-label, .ap-label { font-family:var(--ff-mono); font-size:9px; color:var(--ink-muted); text-transform:uppercase; display:block; margin-bottom:4px; }
+.al-input, .ap-input, .ap-select {
+  width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:8px;
+  background:white; font-family:var(--ff-sans); font-size:13px; color:var(--ink); outline:none;
 }
-.al-input:focus { border-color: var(--gold); }
-.btn-al-login{
-  width:100%;padding:12px;border-radius:8px;background:var(--ink);border:none;
-  font-family:var(--ff-mono);font-size:11px;font-weight:700;color:var(--gold);cursor:pointer;text-transform:uppercase;margin-top:8px;
+.al-input:focus, .ap-input:focus { border-color: var(--gold); }
+.ap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.btn-al-login, .btn-ap-add {
+  width:100%; padding:12px; border-radius:8px; background:var(--ink); border:none;
+  font-family:var(--ff-mono); font-size:11px; font-weight:700; color:var(--gold); cursor:pointer; text-transform:uppercase; margin-top:8px;
   transition: all 0.2s;
 }
-.btn-al-login:hover { background: var(--gold); color: white; }
+.btn-al-login:hover, .btn-ap-add:hover { background: var(--gold); color: white; }
 
 /* ═══ ADMIN BUTTON ═══ */
 #admin-btn {
@@ -177,6 +181,26 @@ footer {
 }
 #admin-btn:hover { transform: scale(1.1); background: var(--gold); color: white; }
 #admin-btn.active { background: var(--gold); color: white; transform: rotate(90deg); }
+
+/* ═══ FLOATING WHATSAPP ═══ */
+#wa-float {
+  position: fixed; bottom: 24px; right: 24px; z-index: 1500;
+  display: flex; align-items: center; gap: 10px;
+  background: #25D366; color: white;
+  padding: 12px 20px; border-radius: 100px;
+  box-shadow: 0 10px 30px rgba(37,211,102,0.3);
+  cursor: pointer; text-decoration: none;
+  font-family: var(--ff-sans); font-size: 13px; font-weight: 600;
+  transition: all 0.3s;
+}
+#wa-float:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37,211,102,0.4); }
+#wa-float span { font-size: 18px; }
+
+@media (max-width: 600px) {
+  #wa-float span { display: block; }
+  #wa-float { padding: 12px; border-radius: 50%; width: 48px; height: 48px; justify-content: center; }
+  #wa-txt { display: none; }
+}
 </style>
 </head>
 <body>
@@ -216,6 +240,12 @@ footer {
   </div>
 </div>
 
+<button id="admin-btn" onclick="toggleAdminUI()" title="Admin Access">⚙</button>
+
+<a id="wa-float" href="https://wa.me/919194XXXXXX?text=Hi! I'm interested in your jewellery collection." target="_blank">
+  <span>📱</span> <span id="wa-txt">WhatsApp</span>
+</a>
+
 <div id="admin-login">
   <div class="al-title">Secure Access</div>
   <div class="al-sub">SS Jewel Manufactures</div>
@@ -229,7 +259,46 @@ footer {
   </div>
   <button class="btn-al-login" onclick="doLogin()">Authenticate</button>
   <div style="text-align:center;margin-top:20px">
-    <button onclick="openAdminLogin()" style="background:none;border:none;color:var(--ink-muted);font-family:var(--ff-mono);font-size:10px;cursor:pointer;">CANCEL</button>
+    <button onclick="toggleAdminUI()" style="background:none;border:none;color:var(--ink-muted);font-family:var(--ff-mono);font-size:10px;cursor:pointer;">CANCEL</button>
+  </div>
+</div>
+
+<div id="admin-panel">
+  <div class="ap-title">Add Product</div>
+  <div class="ap-sub">Catalogue Management</div>
+  
+  <div class="ap-field">
+    <label class="ap-label">Model Number</label>
+    <input class="ap-input" id="f-model" placeholder="SSGRNG0001">
+  </div>
+  
+  <div class="ap-field">
+    <label class="ap-label">Product Name</label>
+    <input class="ap-input" id="f-name" placeholder="Lotus Ring">
+  </div>
+
+  <div class="ap-row">
+    <div class="ap-field">
+      <label class="ap-label">Category</label>
+      <select class="ap-select" id="f-cat">
+        <option>Ring</option><option>Earring</option><option>Chain</option>
+        <option>Bangle</option><option>Necklace</option><option>Other</option>
+      </select>
+    </div>
+    <div class="ap-field">
+      <label class="ap-label">Price (₹)</label>
+      <input class="ap-input" id="f-price" type="number" placeholder="5000">
+    </div>
+  </div>
+
+  <div class="ap-field">
+    <label class="ap-label">Image URL</label>
+    <input class="ap-input" id="f-img" placeholder="gold-stud-img/filename.png">
+  </div>
+
+  <button class="btn-ap-add" onclick="addProduct()">＋ Add to Catalogue</button>
+  <div style="text-align:center;margin-top:20px">
+    <button onclick="logout()" style="background:none;border:none;color:var(--rose);font-family:var(--ff-mono);font-size:10px;cursor:pointer;letter-spacing:1px;">LOGOUT ADMIN</button>
   </div>
 </div>
 
@@ -256,6 +325,7 @@ const PRODUCTS = [
 ];
 
 let activeFilter = 'all';
+let isAdmin = false;
 
 function render() {
   const grid = document.getElementById('grid');
@@ -303,9 +373,16 @@ function closeModal(e) {
   if (e.target === document.getElementById('modal-ov')) document.getElementById('modal-ov').classList.remove('open');
 }
 
-function openAdminLogin() { 
-  document.getElementById('admin-login').classList.toggle('open'); 
-  document.getElementById('admin-btn').classList.toggle('active');
+function toggleAdminUI() { 
+  const panel = isAdmin ? document.getElementById('admin-panel') : document.getElementById('admin-login');
+  const btn = document.getElementById('admin-btn');
+  
+  // Close the other one just in case
+  document.getElementById('admin-login').classList.remove('open');
+  document.getElementById('admin-panel').classList.remove('open');
+  
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
 }
 
 const ADMINS = [
@@ -322,11 +399,60 @@ function doLogin() {
   const isValid = ADMINS.some(admin => admin.u === u && admin.p === p);
   
   if(isValid) {
-    alert('Admin Access Granted');
-    openAdminLogin();
+    isAdmin = true;
+    showToast('Admin Access Granted');
+    document.getElementById('admin-login').classList.remove('open');
+    document.getElementById('admin-panel').classList.add('open');
+    document.getElementById('admin-btn').innerHTML = '＋';
   } else {
-    alert('Invalid Credentials');
+    showToast('Invalid Credentials');
   }
+}
+
+function logout() {
+  isAdmin = false;
+  document.getElementById('admin-panel').classList.remove('open');
+  document.getElementById('admin-btn').classList.remove('active');
+  document.getElementById('admin-btn').innerHTML = '⚙';
+  showToast('Logged Out');
+}
+
+function addProduct() {
+  const model = document.getElementById('f-model').value.trim();
+  const name = document.getElementById('f-name').value.trim();
+  const cat = document.getElementById('f-cat').value;
+  const price = parseInt(document.getElementById('f-price').value);
+  const img = document.getElementById('f-img').value.trim();
+
+  if(!model || !name || !price) {
+    showToast('Please fill all required fields');
+    return;
+  }
+
+  const newP = { id: Date.now(), model, name, cat, price, img };
+  PRODUCTS.unshift(newP);
+  render();
+  
+  // Clear and close
+  document.getElementById('f-model').value = '';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-price').value = '';
+  document.getElementById('f-img').value = '';
+  
+  toggleAdminUI();
+  showToast(`Added: ${model}`);
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--gold);padding:12px 24px;border-radius:100px;font-size:12px;z-index:3000;font-family:var(--ff-mono);font-weight:700;box-shadow:var(--shadow);animation:slide-up 0.3s ease;';
+  document.body.appendChild(t);
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transition = 'opacity 0.5s';
+    setTimeout(() => t.remove(), 500);
+  }, 3000);
 }
 
 render();
